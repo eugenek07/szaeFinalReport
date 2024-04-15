@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    background-color: white;
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  kbd {
+    color: #121212;
+  }
+  table, th, td {
+  border:1px solid black;
+}
+</style>
+<title>Wind Tunnel Flow Simulator </title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2024</h1>
+<h1 align="middle">Final Project: Wind Tunnel Flow Simulator (WTFS)</h1>
+<h2 align="middle">Eugene Kang, Shawn Lim, Chin Zong Han, Angeline Lee</h2>
+
+<br><br>
+
+<div>
+
+<h2 align="middle">Overview</h2>
+<p>
+	The Wind Tunnel Heat Map Simulator will utilize a 3D environment with simulated air particle collisions to generate a heat map over the surface of different objects. 
+	We will use the Navier-Stokes equations  to model the air flow through the tunnel. Objects inside the tunnel and the wind-tunnel walls themselves will act as obstacles for the flow.
+</p>
+<br>
+
+
+<h2 align="middle">Problem Description</h2>
+<p>
+  <ul>
+    <li>We are trying to simulate the operations of a wind tunnel and developing different techniques to visualize the air flow within the tunnel as it interacts with obstacle objects.</li>
+    <li>A potential challenge will be generating different heatmaps to represent not only wind velocity but also air pressure, drag and lift on different regions of the objects. We will have to capture additional data on the behavior of the particles based on the navier-stokes.</li>
+    <ul>
+      <li>To solve this problem we will have to create new particle classes to contain these meta data and perform navier-stokes operations on.</li>
+    </ul>
+    <li>We will need to achieve real time simulation of the wind particles going at high speeds and interacting with the target object.</li>
+    <ul>
+      <li>To solve this we will approximate as close as possible to accurate real time simulation using the Reynolds-averaged Navier–Stokes
+    </ul>
+  </ul>
+</p>
+<br>
+
+<h2 align="middle">Goals and Deliverables</h2>
+<p>
+  <ul>
+    <li>What we plan to deliver</li>
+    <ul>
+      <li>
+        Demo: Videos of 3 Object Models:
+        <ul>
+          <li>
+            Particles colored based on concentration of collisions and movement. 
+          </li>
+          <li>
+            Example image:
+            <img src = "sample_image.jpg">
+          </li>
+        </ul>
+      </li>
+      <li>
+        Performance Measurement:
+        <ul>
+          <li>
+            Graph of the number of particles that can be rendered vs frame rate
+          </li>
+        </ul>
+      </li>
+      <li>
+        Questions to Answer:
+        <ul>
+          <li>
+            Does the simulation accurately reflect air flow simulations as compared to widely used simulation models?
+          </li>
+          <li>
+            How close to real-time physically accurate simulation we can achieve in terms of particle behavior and interaction with target objects.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <li>What we plan to deliver
+      <ul>
+        <li>Variable Particle Speed (Interactive Scroll Toggle)</li>
+        <ul>
+          <li>A scrollbar which can change the speed of the wind particles while the simulation runs</li>
+        </ul>
+        <li>Render the wind particles as different funny objects</li>
+        <li>Render wind as fluid water</li>
+        <li>Change the simulator so that the object can move during the simulation. </li>
+      </ul>
+    </li>
+  </ul>
+
+</p>
+<br>
+
+<h2 align="middle">Schedule</h2>
+<table style="width:100%">
+  <tr>
+    <th>Week</th>
+    <th>Task</th>
+  </tr>
+  <tr>
+    <td>Week of Apr 1</td>
+    <td>Set up object render and wind tunnel environment</td>
+  </tr>
+  <tr>
+    <td>Week of Apr 8</td>
+    <td>Implement actual wind particles without collisions (Navier-Stokes equations)</td>
+  </tr>
+  <tr>
+    <td>Week of Apr 15</td>
+    <td>Implement wind particle collisions with object and force changes in vector of said particles </td>
+  </tr>
+  <tr>
+    <td>Week of Apr 22</td>
+    <td>Implement color rendering of wind particles based on velocity and collisions. Record Demo video and finish deliverables </td>
+  </tr>
+</table>
+ 
+<p>
+  We will work on additional goals in spare time
+</p>
+<br>
+
+<h2 align="middle">Resources</h2>
+
+<p>
+
+  <ul>Software: We will be using the simple GUI and CGL interface from project 4 (clothsim) as our baseline starting point.</ul>
+<ul>Hardware: Personal computers</ul>
+<ul>
+  Online Resources
+  <ul>
+    Navier-Stokes Simulation: 
+    <ul><a href="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19880008200.pdf">https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19880008200.pdf</a></ul>
+    <ul><a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations">https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations</a></ul>
+  </ul>
+  <ul>
+    Fluid Flow Visualization:
+    <ul><a href="https://www.semanticscholar.org/paper/Fluid-Flow-Visualization-Post-Walsum/de2eca7f712001aee868c65f41baf75a947215c7?p2df">https://www.semanticscholar.org/paper/Fluid-Flow-Visualization-Post-Walsum/de2eca7f712001aee868c65f41baf75a947215c7?p2df</a></ul>
+  </ul>
+</ul>
+
+</p>
+
+</body>
+</html>
