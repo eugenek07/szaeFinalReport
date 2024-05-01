@@ -1,2 +1,2 @@
-# szaeMilestone
-CS184 Final Project Milestone Website
+# szaeFinalReport
+CS184 Final Project Report Website

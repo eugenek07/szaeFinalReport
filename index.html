@@ -43,30 +43,25 @@
 <body>
 
 <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2024</h1>
-<h1 align="middle">Milestone: Wind Tunnel Flow Simulator (WTFS)</h1>
+<h1 align="middle">Final Report: Wind Tunnel Flow Simulator (WTFS)</h1>
 <h2 align="middle">Eugene Kang, Shawn Lim, Chin Zong Han, Angeline Lee</h2>
 
 <br><br>
-
 <div>
-<h2 align="middle">Links</h2>
-<p> 
-  <a href="https://drive.google.com/file/d/1NeJWtGLYDO0OiKS9-TI4yyvnNl-Gv9ts/view?usp=sharing">Video Link</a>
-</p>
-<a href="https://docs.google.com/presentation/d/1hMHxgUHEO77TCJhDSLb7wvMnQvVXTyC_wPP0U4nqoGM/edit?usp=sharing">Slides Link</a>
 
-
-
-<h2 align="middle">Summary of Accomplishments</h2>
+<h2 align="middle">Abstract</h2>
 <p>
-	Currently, we have successfully modified the clothsim functionality to render a grid of particles instead of a mesh for the cloth. We modified the .json test files so that the grid
-  is created vertically and changed the gravity value to allow the particles to move horizontally. We've removed the spring classes and their effect on the particles at the moment. To summarize
-  our accomplishments, we've finalized our setup in transitioning the clothsim skeleton code to prepare the implementation of Navier-Stokes. 
+	The Wind Tunnel Flow Simulator project is a modification to the skeleton code for HW4, Clothsim, which modifies the pointmass system and turns them into moving particles. These moving particles interact with each other and
+  with the environment through collisions to accurately move through a closed tunnel system. Collisions and particle speed affect the color of the particles. All in all, the Wind Tunnel Flow Simulator will utilize a 3D environment
+  with simulated air particle collisions to generate a heat map over the surface of different objects.
 </p>
 <br>
 
-
-<h2 align="middle">Preliminary Results</h2>
+<h2 align="middle">Technical Approach</h2>
+<h3 align="middle">Particles</h3>
+<p>
+  To implement our project, we first modify the parameters within the <code>pointmass</code> struct. 
+</p>
 <p>
   <ul>
     <li>Pointmasses are rendered as GL points in a vertical grid</li>
@@ -76,29 +71,89 @@
     <li>Wind particles will collide with object, but initial implementation of Navier-stokes is not accurate</li>
   </ul>
 </p>
+<p>
+  Currently, we have successfully modified the clothsim functionality to render a grid of particles instead of a mesh for the cloth. We modified the .json test files so that the grid
+  is created vertically and changed the gravity value to allow the particles to move horizontally. We've removed the spring classes and their effect on the particles at the moment. To summarize
+  our accomplishments, we've finalized our setup in transitioning the clothsim skeleton code to prepare the implementation of Navier-Stokes.
+</p>
+<h3 align="middle">Particle Based Wind Simulation</h3>
+
+<h3 align="middle">Collisions</h3>
+<p>
+  In order to facilitate air flow, we used Navier-Stokes equations. Objects inside the tunnel and the wind-tunnel walls act as obstacles for the flow. 
+</p>
 <br>
 
-<h2 align="middle">Reflection on Progress</h2>
+<h2 align="middle">Results</h2>
 <p>
+  Following our initial plan of execution, the results show a successful implementation of the wind tunnel. 
   Currently, we believe that progress has been good, with our remaining two weeks, the main thing to implement is Navier Stokes, storage of collision information to affect color, and finally
   the continuous generation of points per time step to simulate wind. There were a few moments where we had to weigh different options we could take. For instance, we debated on whether to render the
   pointmasses as GL points or spheres. There were pros and cons to both sides, but for the sake of rendering and the efficiency of the simulation, we decided on proceeding with GL points.
 </p>
+<p> 
+  <a href="https://drive.google.com/file/d/1NeJWtGLYDO0OiKS9-TI4yyvnNl-Gv9ts/view?usp=sharing">Video Link</a>
+</p>
+<a href="https://docs.google.com/presentation/d/1hMHxgUHEO77TCJhDSLb7wvMnQvVXTyC_wPP0U4nqoGM/edit?usp=sharing">Slides Link</a>
 <br>
 
-<h2 align="middle">Updated Work Plan</h2>
-<table style="width:100%">
+<h2 align="middle">References</h2>
+<ul>
+  <li>
+    <a href="https://cs184.eecs.berkeley.edu/sp24/docs/hw4">CS184 HW4: ClothSim</a>
+  </li>
+  <li>
+    <a href="https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19880008200.pdf">Navier Stokes Equations (NASA)</a>
+  </li>
+  <li>
+    <a href="https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations">Navier Stokes Equations (Wikipedia)</a>
+  </li>
+  <li>
+    <a href="https://www.semanticscholar.org/paper/Fluid-Flow-Visualization-Post-Walsum/de2eca7f712001aee868c65f41baf75a947215c7?p2df">Fluid FLow Visualization</a>
+  </li>
+</ul>
+
+<h2 align="middle">Contributions from each team member</h2>
+<table>
   <tr>
-    <th>Week</th>
-    <th>Task</th>
+    <th>
+      Team Member
+    </th>
+    <th>
+      Contributions
+    </th>
   </tr>
   <tr>
-    <td>Week of Apr 15</td>
-    <td>Implement wind particle collisions with object and force changes in vector of said particles, add timestep functionality to continuously spawn wind particles </td>
+    <td>
+      Chin Zong Han
+    </td>
+    <td>
+      ___________
+    </td>
   </tr>
   <tr>
-    <td>Week of Apr 22</td>
-    <td>Implement color rendering of wind particles based on velocity and collisions. Record Demo video and finish deliverables </td>
+    <td>
+      Angeline Lee
+    </td>
+    <td>
+      ___________
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Eugene Kang
+    </td>
+    <td>
+      ___________
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Shawn Lim
+    </td>
+    <td>
+      __________
+    </td>
   </tr>
 </table>
 </body>
