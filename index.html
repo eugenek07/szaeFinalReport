@@ -88,9 +88,19 @@
 
 <h3 align="middle">Particle Based Wind Simulation</h3>
 
-<h3 align="middle">Collisions</h3>
+<h3 align="middle">Simulation</h3>
 <p>
-  In order to facilitate air flow, we used Navier-Stokes equations. Objects inside the tunnel and the wind-tunnel walls act as obstacles for the flow. 
+  In order to facilitate air flow, we want to implement Navier-Stokes equations. However the Navier-Stokes equation is computationally difficult to implement, as such we will use a Position-based wind simulation with PointMasses as the particles.
+  Adapting from HW4, the Cloth Struct handles all the pointmasses. 
+  <br>
+  We updated the Pointmass Struct to keep track of a list of their neighbors which we obtain using bounding boxes and hashing. Since we are CPU bound, we made the decision to sacrifice some physical accuracy for efficiency in compute by using Verlet Integration in addition to
+  incompressibility, collision, viscosity and vorticity constraints to update the position of the <code>pointmass</code> at each time step.
+</p>
+<p>
+  Incompressibility
+  <br>
+  <p>The incompressibility constraint applies a small change in position <span class="formula">&Delta;p<sub>i</sub></span> to keep the volume of the fluid constant. We estimate the density of each particle as <span class="formula">&rho;<sub>i</sub> = &Sigma;<sub>j</sub> m<sub>j</sub>W<sub>poly6</sub>(p<sub>i</sub> - p<sub>j</sub>, h)</span>, where <span class="formula">W<sub>poly6</sub>(||r||, h)</span> is as defined by Muller in Paricle-Based Fluid Simulation for Interactive Applications.
+<p>We use the particle density <span class="formula">&rho;<sub>i</sub></span> and fluid's rest density <span class="formula">&rho;<sub>0</sub></span> to calculate a density constraint <span class="formula">C<sub>i</sub></span>:</p>
 </p>
 <h3 align="middle">Color</h3>
 <p>
