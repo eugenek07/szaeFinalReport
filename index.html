@@ -49,7 +49,7 @@
 <br><br>
 <div>
 
-<h2 align="middle">Abstract</h2>
+<h1 align="middle">Abstract</h2>
 <p>
 	The Wind Tunnel Flow Simulator project is a modification to the skeleton code for HW4, Clothsim, which modifies the pointmass system and turns them into moving particles. These moving particles interact with each other and
   with the environment through collisions to accurately move through a closed tunnel system. Collisions and particle speed affect the color of the particles. All in all, the Wind Tunnel Flow Simulator will utilize a 3D environment
@@ -57,29 +57,33 @@
 </p>
 <br>
 
-<h2 align="middle">Technical Approach</h2>
+<h1 align="middle">Technical Approach</h2>
+<h2 align="middle">Summary</h2>
 <h3 align="middle">Particles</h3>
 <p>
-  To implement our project, we first modify the parameters within the <code>pointmass</code> struct. 
+  To implement our project, we first modify the parameters within the <code>pointmass</code> struct. Each <code>pointmass</code> has Vector3D values: position, last_position, forces, and color. They also have values for density and pressure.
+  Additionally, in order to aid with collision calculations, we store <code>last_velocity</code>, <code>temp_velocity</code>, <coder>delta_p</coder>, a list of its pointmass neighbors, <code>lambda</code>, <code>rho</code>, and <code>omega</code>. These values
+  are used at each timestep to continuously update the pointmass positions. Additionally, spring connections between point masses have been removed. 
+</p>
+<h3 align="middle">Particle Rendering</h3>
+<p>
+  We found that the pointmass rendering approach of using GL Spheres caused too many efficiency and latency issues. We found that GL points were much more efficient and their size and color could also be modified.
 </p>
 <p>
-  <ul>
-    <li>Pointmasses are rendered as GL points in a vertical grid</li>
-    <li>Pointmasses move on the horizontal plane: gravity value modifed</li>
-    <li>Spring connections between pointmasses and halfedge mesh rendering of cloth removed</li>
-    <li>Navier-stokes file created</li>
-    <li>Wind particles will collide with object, but initial implementation of Navier-stokes is not accurate</li>
-  </ul>
+  Particles are generated as a grid of particles laid out vertically. Within <code>main.cpp</code>, we add a loop in order to spawn in points as a grid every 10 iterations. This will allow us to simulate a constant stream of wind. 
 </p>
 <p>
-  Currently, we have successfully modified the clothsim functionality to render a grid of particles instead of a mesh for the cloth. We modified the .json test files so that the grid
-  is created vertically and changed the gravity value to allow the particles to move horizontally. We've removed the spring classes and their effect on the particles at the moment. To summarize
-  our accomplishments, we've finalized our setup in transitioning the clothsim skeleton code to prepare the implementation of Navier-Stokes.
+  We added logic to ensure that particles would be deleted once they exit the boundaries of the wind tunnel. This is to ensure our pointmass array doesn't become too large. 
 </p>
 
 <h3 align="middle">Color</h3>
 <p>
-  The color of each particle is determined by its own velocity. Within the simulation file, we 
+  The color of each particle is determined by its own velocity. Within the simulation file, we passed in the position and the velocity of the particles to the shader.
+  In <code>phong.frag</code>, we estimated a max velocity and clamped the input velocity to be between the max velocity and 0 and put it as a fraction between 0 and 1.
+  For example, if the input speed was very close to the max velocity, then the clamped number would be very close to 1.0. Using these numbers, we fed it into the r, g, and b attributes of the output color.
+  We wanted green to represent low velocity and red to represent high velocity, so we put in this clamped number into <code>color.r</code> and put in <code>1 - </code> the clamped number into <code>color.g</code>, and we put the half point into <code>color.b</code>.
+  We then faced an issue of how the color was changing for every object in the scene not just the wind particles. So, we included a boolean that tells whether the object is a sphere or a plane.
+  If it is sphere or plane, it would just skip over the part of the code that changes color based on velocity.
 </p>
 
 <h3 align="middle">Particle Based Wind Simulation</h3>
@@ -88,22 +92,38 @@
 <p>
   In order to facilitate air flow, we used Navier-Stokes equations. Objects inside the tunnel and the wind-tunnel walls act as obstacles for the flow. 
 </p>
+<h3 align="middle">Color</h3>
+<p>
+  The <code>Vector3D Color</code> of each pointmass is dynamically tied to the speed of each particle. 
+</p>
+<h2 align="middle">Problems Encountered + How Tackled</h2>
+<p>
+  One problem encountered was sever lag whenever we rendered the point mass particles initially. We found that that was occurring because it took more computing power to render each of the GL Spheres.
+  We modified this so that the GL Spheres were rendered as GL Points. Additionally, we had to ensure that the size of the GL Points matched the specificed parameters to ensure that their behavior was accurate in relation
+  to their pointmass neighbors. 
+</p>
+<p>
+  Another issue we encountered was how the behavior of the particles would change drastically according to the initial speed of the simulation. Through trial and error,
+  we had to tune parameters even after fully implementing our collision logic in order to achieve the desired behavior from the simulation.
+</p>
+<h2 align="middle">Lessons Learned</h2>
+<p>
+  One of the main lessons learned from this project is the difficulty associated with tuning parameters in order to achieve good results. 3D Simulations and particle relationships are extremely finicky and requires a time consuming process to 
+  create good results. We had to go through multiple different iterations, modifying the speed of the particles and the amount of particles until we reached a more high quality simulation.  
+</p>
+
 <br>
 
-<h2 align="middle">Results</h2>
+<h1 align="middle">Results</h2>
 <p>
   Following our initial plan of execution, the results show a successful implementation of the wind tunnel. 
-  Currently, we believe that progress has been good, with our remaining two weeks, the main thing to implement is Navier Stokes, storage of collision information to affect color, and finally
-  the continuous generation of points per time step to simulate wind. There were a few moments where we had to weigh different options we could take. For instance, we debated on whether to render the
-  pointmasses as GL points or spheres. There were pros and cons to both sides, but for the sake of rendering and the efficiency of the simulation, we decided on proceeding with GL points.
 </p>
 <p> 
   <a href="https://drive.google.com/file/d/1NeJWtGLYDO0OiKS9-TI4yyvnNl-Gv9ts/view?usp=sharing">Video Link</a>
 </p>
-<a href="https://docs.google.com/presentation/d/1hMHxgUHEO77TCJhDSLb7wvMnQvVXTyC_wPP0U4nqoGM/edit?usp=sharing">Slides Link</a>
 <br>
 
-<h2 align="middle">References</h2>
+<h1 align="middle">References</h2>
 <ul>
   <li>
     <a href="https://cs184.eecs.berkeley.edu/sp24/docs/hw4">CS184 HW4: ClothSim</a>
@@ -117,9 +137,15 @@
   <li>
     <a href="https://www.semanticscholar.org/paper/Fluid-Flow-Visualization-Post-Walsum/de2eca7f712001aee868c65f41baf75a947215c7?p2df">Fluid FLow Visualization</a>
   </li>
+  <li>
+    <a href="http://mmacklin.com/pbf_sig_preprint.pdf">Position Based Fluid Simulator</a>
+  </li>
+  <li>
+    <a href="https://www.cs.cmu.edu/~baraff/papers/sig98.pdf">Particle-Based Fluid Simulation for Interactive Applications</a>
+  </li>
 </ul>
 
-<h2 align="middle">Contributions from each team member</h2>
+<h1 align="middle">Contributions</h2>
 <table>
   <tr>
     <th>
@@ -131,10 +157,11 @@
   </tr>
   <tr>
     <td>
-      Chin Zong Han
+      Zong Han Chin
     </td>
     <td>
-      ___________
+      Worked on particle simulation and parameter tuning for wind tunnel simulation. Implemented most physics based
+      calculations and updates such as collision detection and correction and SPH algorithm.
     </td>
   </tr>
   <tr>
@@ -142,7 +169,7 @@
       Angeline Lee
     </td>
     <td>
-      ___________
+      Built wind-tunnel enviroment and implemented particle rendering. Also worked on particle simulation for the wind tunnel simulation.
     </td>
   </tr>
   <tr>
@@ -150,7 +177,7 @@
       Eugene Kang
     </td>
     <td>
-      ___________
+      Worked on grid generation of wind particles, initial simulation, and particle deletion
     </td>
   </tr>
   <tr>
@@ -158,7 +185,7 @@
       Shawn Lim
     </td>
     <td>
-      __________
+      Worked on implementing dynamically changing the color of particles based on speed and particle generation.
     </td>
   </tr>
 </table>
