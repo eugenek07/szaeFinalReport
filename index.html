@@ -69,6 +69,9 @@
 <p>
   We found that the pointmass rendering approach of using GL Spheres caused too many efficiency and latency issues. We found that GL points were much more efficient and their size and color could also be modified.
 </p>
+<div style="text-align: center;">
+  <img src="media/particles.png" width="300">
+</div>
 <p>
   Particles are generated as a grid of particles laid out vertically. Within <code>main.cpp</code>, we add a loop in order to spawn in points as a grid every 10 iterations. This will allow us to simulate a constant stream of wind. 
 </p>
@@ -81,7 +84,7 @@
   The color of each particle is determined by its own velocity. Within the simulation file, we passed in the position and the velocity of the particles to the shader.
   In <code>phong.frag</code>, we estimated a max velocity and clamped the input velocity to be between the max velocity and 0 and put it as a fraction between 0 and 1.
   For example, if the input speed was very close to the max velocity, then the clamped number would be very close to 1.0. Using these numbers, we fed it into the r, g, and b attributes of the output color.
-  We wanted green to represent low velocity and red to represent high velocity, so we put in this clamped number into <code>color.r</code> and put in <code>1 - </code> the clamped number into <code>color.g</code>, and we put the half point into <code>color.b</code>.
+  We wanted green to represent low velocity and red to represent high velocity, so we put in this clamped number into <code>color.r</code> and put in <code>1 - </code> the clamped number into <code>color.g</code>, and we put the half point into <code>color.r</code>.
   We then faced an issue of how the color was changing for every object in the scene not just the wind particles. So, we included a boolean that tells whether the object is a sphere or a plane.
   If it is sphere or plane, it would just skip over the part of the code that changes color based on velocity.
 </p>
@@ -165,9 +168,13 @@
       <td>
         <img src="media/50-5-side.gif" align="middle" width="300vw" />
       </td>
-      <td>
     </tr>
   </table>
+  <video width="600vw" height="500" controls>
+    <source src="media/video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+  </video>
+  
 </div>
 <br>
 
