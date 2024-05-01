@@ -76,7 +76,6 @@
   We added logic to ensure that particles would be deleted once they exit the boundaries of the wind tunnel. This is to ensure our pointmass array doesn't become too large. 
 </p>
 
-
 <h3 align="middle">Collisions</h3>
 <p>
   In order to facilitate air flow, we used Navier-Stokes equations. Objects inside the tunnel and the wind-tunnel walls act as obstacles for the flow. 
@@ -87,16 +86,23 @@
 </p>
 <h2 align="middle">Problems Encountered + How Tackled</h2>
 <p>
-  Lessons Blah Blah
+  One problem encountered was sever lag whenever we rendered the point mass particles initially. We found that that was occurring because it took more computing power to render each of the GL Spheres.
+  We modified this so that the GL Spheres were rendered as GL Points. Additionally, we had to ensure that the size of the GL Points matched the specificed parameters to ensure that their behavior was accurate in relation
+  to their pointmass neighbors. 
+</p>
+<p>
+  Another issue we encountered was how the behavior of the particles would change drastically according to the initial speed of the simulation. Through trial and error,
+  we had to tune parameters even after fully implementing our collision logic in order to achieve the desired behavior from the simulation.
 </p>
 <h2 align="middle">Lessons Learned</h2>
 <p>
-  Lessons Blah Blah
+  One of the main lessons learned from this project is the difficulty associated with tuning parameters in order to achieve good results. 3D Simulations and particle relationships are extremely finicky and requires a time consuming process to 
+  create good results. We had to go through multiple different iterations, modifying the speed of the particles and the amount of particles until we reached a more high quality simulation.  
 </p>
 
 <br>
 
-<h2 align="middle">Results</h2>
+<h1 align="middle">Results</h2>
 <p>
   Following our initial plan of execution, the results show a successful implementation of the wind tunnel. 
 </p>
@@ -105,7 +111,7 @@
 </p>
 <br>
 
-<h2 align="middle">References</h2>
+<h1 align="middle">References</h2>
 <ul>
   <li>
     <a href="https://cs184.eecs.berkeley.edu/sp24/docs/hw4">CS184 HW4: ClothSim</a>
@@ -127,7 +133,7 @@
   </li>
 </ul>
 
-<h2 align="middle">Contributions from each team member</h2>
+<h1 align="middle">Contributions</h2>
 <table>
   <tr>
     <th>
@@ -159,7 +165,7 @@
       Eugene Kang
     </td>
     <td>
-      ___________
+      Worked on grid generation of wind particles, initial simulation, and particle deletion
     </td>
   </tr>
   <tr>
@@ -167,7 +173,7 @@
       Shawn Lim
     </td>
     <td>
-      __________
+      Worked on implementing dynamically changing the color of particles based on speed and particle generation.
     </td>
   </tr>
 </table>
